@@ -28,7 +28,7 @@ class EmployeesList {
     }
 
     if (this.list.name === name) {
-      // оброблємо особливий випадок з пеершим співробітником
+      // оброблємо особливий випадок з першим співробітником
       this.list = this.list.next;
     }
 
@@ -80,7 +80,7 @@ newEmployeeList.printEmploeesList();
 newEmployeeList.addEmployee("Bob");
 newEmployeeList.addEmployee("Smit");
 newEmployeeList.printEmploeesList();
-newEmployeeList.addEmployeeByPosition("Nataliia",1);
+newEmployeeList.addEmployeeByPosition("Nataliia", 1);
 newEmployeeList.printEmploeesList();
 //{ name: 'Roland', next: {name: 'Nataliia', next: null} }
 //['Roland', 'Nataliia']
@@ -98,3 +98,65 @@ newEmployeeList.printEmploeesList();
 // newEmployeeList.deleteEmployee("Nataliia");
 // newEmployeeList.printEmploeesList();
 //{ name: 'Roland', next: {name: 'Bob', next: null} }
+//-----------------------------------------------------------------
+/*
+{
+*1*: "first value",
+*2*: "second value",
+*3*: "third value"
+}
+ */
+class Collection {
+  constructor() {
+    this.collection = {}; // створили пустий об'єкт
+    this.length = 0;
+    this.index = 1; // для створення димамічного ключа при додаванні
+  }
+
+  add(value) {
+    this.collection[`*${this.index}*`] = value; //динамічні свойства
+    this.index++;
+    this.length++;
+  }
+
+  print() {
+    console.log(this.collection);
+  }
+
+  [Symbol.iterator]() {
+    let index2 = 1;
+    return {
+      next: () => {
+        const key = `*${index2}*`;
+        const result = {
+          value: [key, this.collection[key]],
+          done: false,
+        };
+        if (index2 > this.length) {
+          result.done = true;
+        }
+        index2++;
+        return result;
+      },
+    };
+    //yield this.collection['*1*'];
+    // yield  this.collection['*2*'];
+    // yield  this.collection['*3*'];
+  }
+}
+
+const myCollection = new Collection();
+myCollection.print();
+myCollection.add("first value");
+myCollection.print();
+myCollection.add("second value");
+myCollection.print();
+myCollection.add("third value");
+myCollection.print();
+
+for (const [key, value] of myCollection) {
+  //console.log("key:", key);
+  console.log("key:", key, "value:", value);
+}
+myCollection.add("fourth value");
+myCollection.print();
