@@ -1,11 +1,10 @@
 class EmployeesList {
   constructor() {
-    this.list = null; //зберігає посилання на перший елемент списку
+    this.list = null;
   }
-  // Кожен співробітник є object з двома властивостями:
-  //його ім'я та посилання на наступного співробітника в списку
+
   createEmployee(name) {
-    return { name: name, next: null }; //Спочатку це null, бо він не має наступного співробітника.
+    return { name: name, next: null };
   }
 
   addEmployee(name) {
@@ -14,7 +13,7 @@ class EmployeesList {
       this.list = newEmployee;
       return;
     }
-    //Якщо список не порожній, то перебираємо всі елементи списку
+
     let currentEmployee = this.list;
     while (currentEmployee.next !== null) {
       currentEmployee = currentEmployee.next;
@@ -25,12 +24,10 @@ class EmployeesList {
 
   deleteEmployee(name) {
     if (this.list === null) {
-      //Якщо наш лист пустий
-      return; //метод зупиняється
+      return;
     }
 
     if (this.list.name === name) {
-      // оброблємо особливий випадок з першим співробітником
       this.list = this.list.next;
     }
 
@@ -38,7 +35,7 @@ class EmployeesList {
     while (currentEmployee !== null && currentEmployee.next !== null) {
       if (currentEmployee.next.name === name) {
         currentEmployee.next = currentEmployee.next.next;
-        return; //зупиняємо цикл, щоб зайвий раз не проходити цикл по наступним співробітникам
+        return;
       }
       currentEmployee = currentEmployee.next;
     }
@@ -48,13 +45,12 @@ class EmployeesList {
     const array = [];
     let currentEmployee = this.list;
     while (currentEmployee !== null) {
-      array.push(currentEmployee.name); //додає їхні імена до масиву array
+      array.push(currentEmployee.name);
       currentEmployee = currentEmployee.next;
     }
     console.log(array);
   }
 
-  //додає співробітника на певну позицію в списку
   addEmployeeByPosition(name, position) {
     const newEmployee = this.createEmployee(name);
     let currentEmployee = this.list;
@@ -69,18 +65,14 @@ class EmployeesList {
       currentEmployee = currentEmployee.next;
     }
   }
-  //{name: 'Roland', next: {name:'Bob',next:null}}
-  //{name: 'Roland', next:{name: 'Nataliia',next:{name:'Bob',next:null}}}
 }
 
 const newEmployeeList = new EmployeesList();
 
 newEmployeeList.printEmploeesList();
-newEmployeeList.addEmployee("Roland");
+newEmployeeList.addEmployee("Rol");
 newEmployeeList.printEmploeesList();
 console.log(newEmployeeList);
-//{ name: 'Roland', next: null }
-//['Roland']
 newEmployeeList.addEmployee("Bob");
 newEmployeeList.addEmployee("Smit");
 newEmployeeList.printEmploeesList();
@@ -88,42 +80,20 @@ console.log(newEmployeeList);
 newEmployeeList.addEmployeeByPosition("Nataliia", 1);
 newEmployeeList.printEmploeesList();
 console.log(newEmployeeList);
-//{ name: 'Roland', next: {name: 'Nataliia', next: null} }
-//['Roland', 'Nataliia']
-// newEmployeeList.addEmployee("Bob");
-// newEmployeeList.printEmploeesList();
-// newEmployeeList.addEmployee("Smit");
-// newEmployeeList.printEmploeesList();
-// //{name:'Roland', next:{name:'Nataliia',next:{name: 'Bob',next:null}}}
-// newEmployeeList.deleteEmployee("Bob");
-// //{ name: 'Roland', next: {name: 'Nataliia', next: null} }
-// newEmployeeList.printEmploeesList();
-// newEmployeeList.deleteEmployee("Roland");
-// newEmployeeList.printEmploeesList();
-// //{name: 'Nataliia', next: null}
-// newEmployeeList.deleteEmployee("Nataliia");
-// newEmployeeList.printEmploeesList();
-//{ name: 'Roland', next: {name: 'Bob', next: null} }
-//-----------------------------------------------------------------
+
 console.log(
   "//---------------------------------------------------------------------------"
 );
-/*
-{
-*1*: "first value",
-*2*: "second value",
-*3*: "third value"
-}
- */
+
 class Collection {
   constructor() {
-    this.collection = {}; // створили пустий об'єкт
-    this.length = 0; // де будуть зберігатися елементи
-    this.index = 1; // для створення димамічного ключа при додаванні
+    this.collection = {}; 
+    this.length = 0; 
+    this.index = 1; 
   }
 
   add(value) {
-    this.collection[`*${this.index}*`] = value; //динамічні властивості
+    this.collection[`*${this.index}*`] = value; 
     this.index++;
     this.length++;
   }
@@ -161,7 +131,6 @@ myCollection.add("third value");
 myCollection.print();
 
 for (const [key, value] of myCollection) {
-  //console.log("key:", key);
   console.log("key:", key, "value:", value);
 }
 myCollection.add("fourth value");
@@ -169,24 +138,6 @@ myCollection.print();
 console.log(
   "//---------------------------------------------------------------------------"
 );
-
-/*
-()
-{}
-[]
-<>
-
-() - true
-)( - false
-
-{}[] - true
-{[}] - false
-
-<()> - true
-
-)    - false
-
-*/
 
 const checkBrackets = (string) => {
   const object = {
@@ -220,7 +171,7 @@ const checkBrackets = (string) => {
       return false;
     }
 
-   let isValidSquare = checkCurrentSymbol(
+    let isValidSquare = checkCurrentSymbol(
       object,
       "squareBracketStatus",
       string[i],
@@ -231,7 +182,7 @@ const checkBrackets = (string) => {
       return false;
     }
 
-   let isValidMoreLess = checkCurrentSymbol(
+    let isValidMoreLess = checkCurrentSymbol(
       object,
       "moreLessBracketStatus",
       string[i],
@@ -272,53 +223,53 @@ const checkCurrentSymbol = (object, prop, item, openSymbol, closeSymbol) => {
 };
 
 console.log(
-  checkBrackets("Roland (Jan)"),
+  checkBrackets("()"),
   "true",
-  checkBrackets("Roland (Jan))"),
+  checkBrackets("())"),
   "false",
-  checkBrackets("Roland ((Jan))"),
+  checkBrackets("(())"),
   "true",
-  checkBrackets("Roland )Jan("),
+  checkBrackets(")("),
   "false",
-  checkBrackets("Roland (Jan()"),
+  checkBrackets("(()"),
   "false",
-  checkBrackets("Roland (Jan())"),
+  checkBrackets("(())"),
   "true"
 );
 console.log(
-  checkBrackets("Roland {Jan}"),
+  checkBrackets("{}"),
   "true",
-  checkBrackets("Roland {Jan}}"),
+  checkBrackets("{}}"),
   "false",
-  checkBrackets("Roland {{Jan}}"),
+  checkBrackets("{{}}"),
   "true",
-  checkBrackets("Roland }Jan{"),
+  checkBrackets("}{"),
   "false",
-  checkBrackets("Roland {Jan{}"),
+  checkBrackets("{{}"),
   "false",
-  checkBrackets("Roland {Jan{}}"),
+  checkBrackets("{{}}"),
   "true"
 );
 console.log(
-  checkBrackets("Roland ({Jan})"),
+  checkBrackets("({})"),
   "true",
-  checkBrackets("Roland (}Jan{)"),
+  checkBrackets("(}{)"),
   "false",
-  checkBrackets("Roland {(Jan})"),
+  checkBrackets("{(})"),
   "false",
-  checkBrackets("Roland ({(Jan())})"),
+  checkBrackets("({(())})"),
   "true",
-  checkBrackets("Roland Jan(){}(){}"),
+  checkBrackets("(){}(){}"),
   "true",
-  checkBrackets("{(Roland) (Jan)}"),
+  checkBrackets("{()()}"),
   "true",
   checkBrackets("{(){}"),
   "false"
 );
 console.log(
-  checkBrackets("Roland [Jan]"),
+  checkBrackets("[]"),
   "true",
-  checkBrackets("Roland (]Jan[)"),
+  checkBrackets("(][)"),
   "false",
   checkBrackets("({[]})"),
   "true",
@@ -327,12 +278,12 @@ console.log(
 );
 
 console.log(
-  checkBrackets("Roland <Jan>"),
+  checkBrackets("<>"),
   "true",
-  checkBrackets("Roland (>Jan<)"),
+  checkBrackets("(><)"),
   "false",
-   checkBrackets("({<}>)"),
+  checkBrackets("({<}>)"),
   "false",
-   checkBrackets("(){}[]<>"),
-   "true"
+  checkBrackets("(){}[]<>"),
+  "true"
 );
